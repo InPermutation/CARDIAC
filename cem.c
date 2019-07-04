@@ -51,6 +51,16 @@ void fetch() {
 void advance() {
 	pc++;
 }
+#define INP 0
+#define CLA 1
+#define ADD 2
+#define TAC 3
+#define SFT 4
+#define OUT 5
+#define STO 6
+#define SUB 7
+#define JMP 8
+#define HRS 9
 void execute() {
 	assert(ir >= 0);
 	uint8_t op = ir / 100;
@@ -61,6 +71,37 @@ void execute() {
 #endif
 
 	switch (op) {
+		case INP:
+			set_mem(xy, input());
+			break;
+		case CLA:
+			acc = get_mem(xy);
+			break;
+		case ADD:
+			acc = truncate(acc) + get_mem(xy);
+			break;
+		case TAC:
+			if (truncate(acc) < 0) {
+				pc = xy;
+			}
+			break;
+		case OUT:
+			output(get_mem(xy));
+			break;
+		case STO:
+			set_mem(xy, truncate(acc));
+			break;
+		case SUB:
+			acc = truncate(acc) - get_mem(xy);
+			break;
+		case JMP:
+			set_mem(99, pc + 800);
+			pc = xy;
+			break;
+		case HRS:
+			pc = xy;
+			paused = true;
+			break;
 		default:
 			fprintf(stderr, "FAIL decode, ir=%03hd\n", ir);
 			exit(1);
