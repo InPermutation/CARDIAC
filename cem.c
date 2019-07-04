@@ -52,7 +52,15 @@ void advance() {
 	pc++;
 }
 void execute() {
-	switch(ir / 100) {
+	assert(ir >= 0);
+	uint8_t op = ir / 100;
+	uint8_t xy = ir % 100;
+#ifdef DEBUG
+	fprintf(stderr, "pc=%hd ir=%hd op=%hd xy=%hd mem[99]=%hd\n",
+		pc, ir, op, xy, memory[99]);
+#endif
+
+	switch (op) {
 		default:
 			fprintf(stderr, "FAIL decode, ir=%03hd\n", ir);
 			exit(1);
