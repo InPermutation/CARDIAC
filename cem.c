@@ -33,6 +33,17 @@ word_t set_mem(word_t loc, word_t val) {
 	memory[loc] = val;
 }
 
+word_t input() {
+	word_t val;
+	scanf("%hd", &val);
+	assert(val > -1000 && val < 1000);
+	return val;
+}
+
+void output(word_t val) {
+	printf("%03hd\n", val);
+}
+
 int main(int argc, char** argv) {
 	return 0;
 }
