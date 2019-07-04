@@ -54,8 +54,7 @@ void advance() {
 void execute() {
 	switch(ir / 100) {
 		default:
-			printf("FAIL decode, ir=");
-			output(ir);
+			fprintf(stderr, "FAIL decode, ir=%03hd\n", ir);
 			exit(1);
 	}
 }
