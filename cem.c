@@ -19,6 +19,20 @@ word_t truncate(acc_t a) {
 	return a % 1000;
 }
 
+word_t get_mem(word_t loc) {
+	assert(loc >= 0 && loc <= 99);
+	return loc == 0 ? 1 : memory[loc];
+}
+
+word_t set_mem(word_t loc, word_t val) {
+	assert(loc >= 0 && loc <= 99);
+	assert(loc != 0);
+	if (loc == 99) {
+		assert( (val / 100) == 8);
+	}
+	memory[loc] = val;
+}
+
 int main(int argc, char** argv) {
 	return 0;
 }
