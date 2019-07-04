@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -44,6 +45,31 @@ void output(word_t val) {
 	printf("%03hd\n", val);
 }
 
+void fetch() {
+	ir = get_mem(pc);
+}
+void advance() {
+	pc++;
+}
+void execute() {
+	switch(ir / 100) {
+		default:
+			printf("FAIL decode, ir=");
+			output(ir);
+			exit(1);
+	}
+}
+
+void step() {
+	fetch();
+	advance();
+	execute();
+}
+
 int main(int argc, char** argv) {
+	paused = false;
+	while (!paused) {
+		step();
+	}
 	return 0;
 }
