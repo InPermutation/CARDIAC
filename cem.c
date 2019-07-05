@@ -50,13 +50,12 @@ void output(word_t val) {
 	}
 }
 
-void fetch() {
+void step() {
+	// fetch
 	ir = get_mem(pc);
-}
-void advance() {
+	// advance
 	pc++;
-}
-void execute() {
+	// decode
 	assert(ir >= 0);
 	uint8_t op = ir / 100;
 	uint8_t xy = ir % 100;
@@ -66,7 +65,7 @@ void execute() {
 	fprintf(stderr, "pc=%4hd ir=%4hd op=%4hd xy=%4hd acc=%5hd mem[99]=%5hd\n",
 		pc, ir, op, xy, acc, memory[99]);
 #endif
-
+	// execute
 	switch (op) {
 		case 0: // INP
 			set_mem(xy, input());
@@ -114,12 +113,6 @@ void execute() {
 			fprintf(stderr, "FAIL decode, ir=%03hd\n", ir);
 			exit(1);
 	}
-}
-
-void step() {
-	fetch();
-	advance();
-	execute();
 }
 
 int main(int argc, char** argv) {
