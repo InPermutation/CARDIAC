@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
-#include <stdbool.h>
 #include <assert.h>
 
 // The range of a WORD needs to hold -999 to 999, at least 11 bits.
@@ -13,8 +12,6 @@ word_t memory[100];
 word_t ir;
 word_t pc = 0;
 acc_t acc;
-
-bool paused = true;
 
 word_t truncate(acc_t a) {
 	return a % 1000;
@@ -50,7 +47,7 @@ void output(word_t val) {
 	}
 }
 
-void step() {
+int step() {
 	// fetch
 	ir = get_mem(pc);
 	// advance
@@ -105,18 +102,15 @@ void step() {
 			break;
 		case 9: // HRS
 			pc = xy;
-			paused = true;
-			break;
+			return 0;
 		default:
 			fprintf(stderr, "FAIL decode, ir=%03hd\n", ir);
 			exit(1);
 	}
+	return 1;
 }
 
 int main(int argc, char** argv) {
-	paused = false;
-	while (!paused) {
-		step();
-	}
+	while (step()) { }
 	return 0;
 }
