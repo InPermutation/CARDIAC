@@ -71,8 +71,8 @@ void execute() {
 	uint8_t op = ir / 100;
 	uint8_t xy = ir % 100;
 #ifdef DEBUG
-	fprintf(stderr, "pc=%hd ir=%hd op=%hd xy=%hd mem[99]=%hd\n",
-		pc, ir, op, xy, memory[99]);
+	fprintf(stderr, "pc=%4hd ir=%4hd op=%4hd xy=%4hd acc=%5hd mem[99]=%5hd\n",
+		pc, ir, op, xy, acc, memory[99]);
 #endif
 
 	switch (op) {
