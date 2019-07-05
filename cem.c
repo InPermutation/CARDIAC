@@ -45,18 +45,18 @@ int step() {
 	switch (ir / 100) {
 		case 0: // INP
 			set_mem(xy, input());
-			break;
+			return 1;
 		case 1: // CLA
 			acc = get_mem(xy);
-			break;
+			return 1;
 		case 2: // ADD
 			acc = truncate(acc) + get_mem(xy);
-			break;
+			return 1;
 		case 3: // TAC
 			if (truncate(acc) < 0) {
 				pc = xy;
 			}
-			break;
+			return 1;
 		case 4: // SFT
 			while (xy > 10) {
 				acc = (acc * 10) % 10000;
@@ -66,22 +66,22 @@ int step() {
 				acc = acc / 10;
 				xy--;
 			}
-			break;
+			return 1;
 
 		case 5: // OUT
 			xy = get_mem(xy);
 			printf(xy >= 0 ? "%03hd\n" : "%04hd\n", xy);
-			break;
+			return 1;
 		case 6: // STO
 			set_mem(xy, truncate(acc));
-			break;
+			return 1;
 		case 7: // SUB
 			acc = truncate(acc) - get_mem(xy);
-			break;
+			return 1;
 		case 8: // JMP
 			set_mem(99, pc);
 			pc = xy;
-			break;
+			return 1;
 		case 9: // HRS
 			pc = xy;
 			return 0;
@@ -89,7 +89,6 @@ int step() {
 			fprintf(stderr, "FAIL decode, ir=%03hd\n", ir);
 			return -1;
 	}
-	return 1;
 }
 
 int main(int argc, char** argv) {
