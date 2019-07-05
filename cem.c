@@ -6,9 +6,7 @@ short ir;
 short pc = 0;
 short acc;
 
-short truncate(short a) {
-	return a % 1000;
-}
+#define truncate(a) (a % 1000)
 
 short get_mem(short loc) {
 	assert(loc >= 0 && loc <= 99);
