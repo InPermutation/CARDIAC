@@ -44,14 +44,13 @@ int step() {
 	pc++;
 	// decode
 	assert(ir >= 0);
-	short op = ir / 100;
 	short xy = ir % 100;
 #ifdef DEBUG
-	fprintf(stderr, "pc=%4hd ir=%4hd op=%4hd xy=%4hd acc=%5hd mem[99]=%5hd\n",
-		pc, ir, op, xy, acc, memory[99]);
+	fprintf(stderr, "pc=%4hd ir=%4hd xy=%4hd acc=%5hd mem[99]=%5hd\n",
+		pc, ir, xy, acc, memory[99]);
 #endif
 	// execute
-	switch (op) {
+	switch (ir / 100) {
 		case 0: // INP
 			set_mem(xy, input());
 			break;
