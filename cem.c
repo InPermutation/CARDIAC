@@ -59,8 +59,6 @@ void step() {
 	assert(ir >= 0);
 	uint8_t op = ir / 100;
 	uint8_t xy = ir % 100;
-	uint8_t x = xy / 10;
-	uint8_t y = xy % 10;
 #ifdef DEBUG
 	fprintf(stderr, "pc=%4hd ir=%4hd op=%4hd xy=%4hd acc=%5hd mem[99]=%5hd\n",
 		pc, ir, op, xy, acc, memory[99]);
@@ -82,13 +80,13 @@ void step() {
 			}
 			break;
 		case 4: // SFT
-			while (x > 0) {
+			while (xy > 10) {
 				acc = (acc * 10) % 10000;
-				x--;
+				xy -= 10;
 			}
-			while (y > 0) {
+			while (xy > 0) {
 				acc = acc / 10;
-				y--;
+				xy--;
 			}
 			break;
 
