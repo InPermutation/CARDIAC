@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
 
@@ -99,12 +98,12 @@ int step() {
 			return 0;
 		default:
 			fprintf(stderr, "FAIL decode, ir=%03hd\n", ir);
-			exit(1);
+			return -1;
 	}
 	return 1;
 }
 
 int main(int argc, char** argv) {
-	while (step()) { }
+	while (step() > 0) { }
 	return 0;
 }
