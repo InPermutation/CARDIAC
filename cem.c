@@ -3,7 +3,7 @@
 
 short memory[100];
 short ir;
-short pc = 0;
+short pc;
 short acc;
 
 #define truncate(a) (a % 1000)
@@ -23,7 +23,7 @@ short set_mem(short loc, short val) {
 }
 
 short input() {
-	short val;
+	short val = 0;
 	scanf("%hd", &val);
 	assert(val > -1000 && val < 1000);
 	return val;
