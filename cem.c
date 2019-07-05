@@ -14,8 +14,7 @@ short get_mem(short loc) {
 }
 
 short set_mem(short loc, short val) {
-	assert(loc >= 0 && loc <= 99);
-	assert(loc != 0);
+	assert(loc >= 1 && loc <= 99);
 	if (loc == 99) {
 		assert(val >= 0);
 		val = 800 + val % 100;
