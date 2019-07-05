@@ -1,28 +1,22 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdint.h>
 #include <assert.h>
 
-// The range of a WORD needs to hold -999 to 999, at least 11 bits.
-typedef int16_t word_t;
-// Accumulator can hold -1998 to 1998, which fits in 12 bits.
-typedef int16_t acc_t;
+short memory[100];
+short ir;
+short pc = 0;
+short acc;
 
-word_t memory[100];
-word_t ir;
-word_t pc = 0;
-acc_t acc;
-
-word_t truncate(acc_t a) {
+short truncate(short a) {
 	return a % 1000;
 }
 
-word_t get_mem(word_t loc) {
+short get_mem(short loc) {
 	assert(loc >= 0 && loc <= 99);
 	return loc == 0 ? 1 : memory[loc];
 }
 
-word_t set_mem(word_t loc, word_t val) {
+short set_mem(short loc, short val) {
 	assert(loc >= 0 && loc <= 99);
 	assert(loc != 0);
 	if (loc == 99) {
@@ -32,14 +26,14 @@ word_t set_mem(word_t loc, word_t val) {
 	memory[loc] = val;
 }
 
-word_t input() {
-	word_t val;
+short input() {
+	short val;
 	scanf("%hd", &val);
 	assert(val > -1000 && val < 1000);
 	return val;
 }
 
-void output(word_t val) {
+void output(short val) {
 	if (val >= 0) {
 		printf("%03hd\n", val);
 	} else {
@@ -54,8 +48,8 @@ int step() {
 	pc++;
 	// decode
 	assert(ir >= 0);
-	uint8_t op = ir / 100;
-	uint8_t xy = ir % 100;
+	short op = ir / 100;
+	short xy = ir % 100;
 #ifdef DEBUG
 	fprintf(stderr, "pc=%4hd ir=%4hd op=%4hd xy=%4hd acc=%5hd mem[99]=%5hd\n",
 		pc, ir, op, xy, acc, memory[99]);
