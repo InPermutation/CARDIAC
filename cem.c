@@ -42,7 +42,11 @@ word_t input() {
 }
 
 void output(word_t val) {
-	printf("%03hd\n", val);
+	if (val >= 0) {
+		printf("%03hd\n", val);
+	} else {
+		printf("-%03hd\n", -val);
+	}
 }
 
 void fetch() {
