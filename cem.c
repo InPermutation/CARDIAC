@@ -29,7 +29,8 @@ word_t set_mem(word_t loc, word_t val) {
 	assert(loc >= 0 && loc <= 99);
 	assert(loc != 0);
 	if (loc == 99) {
-		assert( (val / 100) == 8);
+		assert(val >= 0);
+		val = 800 + val % 100;
 	}
 	memory[loc] = val;
 }
@@ -99,7 +100,7 @@ void execute() {
 			acc = truncate(acc) - get_mem(xy);
 			break;
 		case JMP:
-			set_mem(99, pc + 800);
+			set_mem(99, pc);
 			pc = xy;
 			break;
 		case HRS:
