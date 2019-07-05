@@ -56,16 +56,6 @@ void fetch() {
 void advance() {
 	pc++;
 }
-#define INP 0
-#define CLA 1
-#define ADD 2
-#define TAC 3
-#define SFT 4
-#define OUT 5
-#define STO 6
-#define SUB 7
-#define JMP 8
-#define HRS 9
 void execute() {
 	assert(ir >= 0);
 	uint8_t op = ir / 100;
@@ -78,21 +68,21 @@ void execute() {
 #endif
 
 	switch (op) {
-		case INP:
+		case 0: // INP
 			set_mem(xy, input());
 			break;
-		case CLA:
+		case 1: // CLA
 			acc = get_mem(xy);
 			break;
-		case ADD:
+		case 2: // ADD
 			acc = truncate(acc) + get_mem(xy);
 			break;
-		case TAC:
+		case 3: // TAC
 			if (truncate(acc) < 0) {
 				pc = xy;
 			}
 			break;
-		case SFT:
+		case 4: // SFT
 			while (x > 0) {
 				acc = (acc * 10) % 10000;
 				x--;
@@ -103,20 +93,20 @@ void execute() {
 			}
 			break;
 
-		case OUT:
+		case 5: // OUT
 			output(get_mem(xy));
 			break;
-		case STO:
+		case 6: // STO
 			set_mem(xy, truncate(acc));
 			break;
-		case SUB:
+		case 7: // SUB
 			acc = truncate(acc) - get_mem(xy);
 			break;
-		case JMP:
+		case 8: // JMP
 			set_mem(99, pc);
 			pc = xy;
 			break;
-		case HRS:
+		case 9: // HRS
 			pc = xy;
 			paused = true;
 			break;
