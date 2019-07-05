@@ -29,14 +29,6 @@ short input() {
 	return val;
 }
 
-void output(short val) {
-	if (val >= 0) {
-		printf("%03hd\n", val);
-	} else {
-		printf("-%03hd\n", -val);
-	}
-}
-
 int step() {
 	// fetch
 	ir = get_mem(pc);
@@ -77,7 +69,8 @@ int step() {
 			break;
 
 		case 5: // OUT
-			output(get_mem(xy));
+			xy = get_mem(xy);
+			printf(xy >= 0 ? "%03hd\n" : "%04hd\n", xy);
 			break;
 		case 6: // STO
 			set_mem(xy, truncate(acc));
