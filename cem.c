@@ -13,7 +13,7 @@ short get_mem(short loc) {
 	return loc == 0 ? 1 : memory[loc];
 }
 
-short set_mem(short loc, short val) {
+void set_mem(short loc, short val) {
 	assert(loc >= 1 && loc <= 99);
 	if (loc == 99) {
 		assert(val >= 0);
@@ -91,7 +91,7 @@ int step() {
 	}
 }
 
-int main(int argc, char** argv) {
+int main() {
 	while (step() > 0) { }
 	return 0;
 }
